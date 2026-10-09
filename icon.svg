@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#d9c0df"/></linearGradient></defs><rect width="128" height="128" rx="30" fill="#b89ab9"/><rect x="21" y="26" width="86" height="83" rx="17" fill="url(#g)" stroke="#fff" stroke-width="4"/><path d="M42 18v21M86 18v21" stroke="#fff" stroke-width="8" stroke-linecap="round"/><circle cx="44" cy="59" r="8" fill="#d7a63f"/><circle cx="64" cy="59" r="8" fill="#8588d9"/><circle cx="84" cy="59" r="8" fill="#54ad8b"/><circle cx="44" cy="82" r="8" fill="#e5c6e9"/><circle cx="64" cy="82" r="8" fill="#e7aabd"/><circle cx="84" cy="82" r="8" fill="#d7a63f"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7ffff"/><stop offset=".52" stop-color="#bceef6"/><stop offset="1" stop-color="#9ce4d6"/></linearGradient>
+ <radialGradient id="bubble" cx=".28" cy=".2" r=".8"><stop stop-color="#fff"/><stop offset=".42" stop-color="#dcfbff"/><stop offset="1" stop-color="#65c5d8"/></radialGradient>
+</defs>
+<rect width="192" height="192" rx="48" fill="url(#bg)"/>
+<circle cx="92" cy="92" r="53" fill="url(#bubble)" stroke="#fff" stroke-width="5"/>
+<circle cx="73" cy="70" r="10" fill="#fff" opacity=".9"/>
+<circle cx="143" cy="43" r="17" fill="url(#bubble)" stroke="#fff" stroke-width="4"/>
+<circle cx="44" cy="133" r="12" fill="url(#bubble)" stroke="#fff" stroke-width="3"/>
+<circle cx="145" cy="139" r="7" fill="#fff" opacity=".8"/>
+<path d="M67 103c13-17 29-17 42 0s29 17 42 0" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+</svg>

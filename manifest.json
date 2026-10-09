@@ -1,8 +1,16 @@
 {
-  "name": "珍珠輪班行事曆・洛可可花園版",
-  "short_name": "珍珠輪班",
-  "start_url": "./",
+  "name": "海洋泡泡輪班行事曆｜漸層暈染版",
+  "short_name": "海洋輪班",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fff8f2",
-  "theme_color": "#c5a6c8"
+  "background_color": "#e8fbff",
+  "theme_color": "#78cdd8",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
