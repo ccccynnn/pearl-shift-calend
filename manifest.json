@@ -1,16 +1,8 @@
 {
-  "name": "珍珠輪班行事曆",
+  "name": "珍珠輪班行事曆・洛可可花園版",
   "short_name": "珍珠輪班",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#fbf4f8",
-  "theme_color": "#b89ab9",
-  "icons": [
-    {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ]
+  "background_color": "#fff8f2",
+  "theme_color": "#c5a6c8"
 }
