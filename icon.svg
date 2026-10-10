@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-<defs>
- <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7ffff"/><stop offset=".52" stop-color="#bceef6"/><stop offset="1" stop-color="#9ce4d6"/></linearGradient>
- <radialGradient id="bubble" cx=".28" cy=".2" r=".8"><stop stop-color="#fff"/><stop offset=".42" stop-color="#dcfbff"/><stop offset="1" stop-color="#65c5d8"/></radialGradient>
-</defs>
-<rect width="192" height="192" rx="48" fill="url(#bg)"/>
-<circle cx="92" cy="92" r="53" fill="url(#bubble)" stroke="#fff" stroke-width="5"/>
-<circle cx="73" cy="70" r="10" fill="#fff" opacity=".9"/>
-<circle cx="143" cy="43" r="17" fill="url(#bubble)" stroke="#fff" stroke-width="4"/>
-<circle cx="44" cy="133" r="12" fill="url(#bubble)" stroke="#fff" stroke-width="3"/>
-<circle cx="145" cy="139" r="7" fill="#fff" opacity=".8"/>
-<path d="M67 103c13-17 29-17 42 0s29 17 42 0" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8bedf"/><stop offset="1" stop-color="#a98db5"/></linearGradient><radialGradient id="p" cx=".3" cy=".2" r=".8"><stop stop-color="#fff"/><stop offset=".45" stop-color="#fffaff"/><stop offset="1" stop-color="#d9c2e0"/></radialGradient></defs><rect width="128" height="128" rx="32" fill="url(#bg)"/><rect x="19" y="24" width="90" height="87" rx="22" fill="#fff8fd" opacity=".96"/><path d="M41 17v23M87 17v23" stroke="#fff" stroke-width="8" stroke-linecap="round"/><circle cx="43" cy="57" r="9" fill="#dfb04b"/><circle cx="64" cy="57" r="9" fill="#8587dc"/><circle cx="85" cy="57" r="9" fill="#59b596"/><circle cx="43" cy="82" r="9" fill="url(#p)"/><circle cx="64" cy="82" r="9" fill="#e8bfdc"/><circle cx="85" cy="82" r="9" fill="url(#p)"/><path d="M100 19l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff"/></svg>
