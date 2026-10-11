@@ -1,16 +1,24 @@
 {
-  "name": "珍珠輪班行事曆｜法式洛可可花園版",
-  "short_name": "珍珠輪班",
+  "name": "Cyn’s Work Calendar｜粉色蝴蝶結輪班行事曆",
+  "short_name": "輪班行事曆",
+  "description": "輪班、加班、每日備註與心情紀錄",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#fcf8fb",
-  "theme_color": "#c8a7c9",
+  "background_color": "#fbf4f8",
+  "theme_color": "#b89ab9",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "./icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }

@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Cyn’s work calendar">
-<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.png">
 <title>*･゜ﾟ･*:.｡..｡.:* Cyn’s work calendar*:.｡. .｡.:*･゜ﾟ･*</title>
 <style>
 :root{--ink:#59475f;--muted:#9b879e;--line:#eaddea;--bg:#fbf4f8;--night:#7f83d9;--nightbg:#e7e7fb;--day:#d7a63f;--daybg:#fff0c9;--off:#54ad8b;--offbg:#e0f5e9}
@@ -159,18 +159,40 @@ body:before{content:var(--bubble-symbol, "🫧　·　✦　·　🫧")}
 .pill.leave,.shift-options button.leave{background:color-mix(in srgb,var(--leave,#9a6bc0),white 84%);color:color-mix(in srgb,var(--leave,#9a6bc0),#59475f 25%)}
 @media(max-width:420px){.module-layout-controls{grid-template-columns:1fr}.card.module-custom-width{min-width:0}}
 
+
+.holiday-filters{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.holiday-filters .btn{padding:8px 10px;font-size:12px}.holiday-filters .btn.active{background:var(--theme,#b89ab9);color:#fff;border-color:transparent}.holiday-legend{display:flex;align-items:center;gap:13px;flex-wrap:wrap;font-size:11px;color:var(--muted)}.holiday-legend span{display:inline-flex;align-items:center;gap:5px}.holiday-dot{display:inline-block;width:8px;height:8px;border-radius:50%}.holiday-dot.tw{background:#d46d91}.holiday-dot.us{background:#7196d5}.holiday-dot.jp{background:#d77b83}.holiday-dot.kr{background:#5e9c83}.holidaymark{display:block;margin-top:2px;font-size:8px;line-height:1.2;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:4px;padding:2px 1px;text-align:center}.holidaymark.tw{background:#ffedf3;color:#a74368}.holidaymark.us{background:#edf3ff;color:#4168a9}.holidaymark.jp{background:#fff0f0;color:#a64e5a}.holidaymark.kr{background:#eaf8f0;color:#39795e}.holiday-detail{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.holiday-chip{display:inline-block;font-size:11px;line-height:1.4;padding:4px 7px;border-radius:8px;background:#ffedf3;color:#a74368}.holiday-chip.us{background:#edf3ff;color:#4168a9}.holiday-chip.jp{background:#fff0f0;color:#a64e5a}.holiday-chip.kr{background:#eaf8f0;color:#39795e}.holiday-chip small{opacity:.75;margin-right:3px}.cell .holidaymark{max-width:100%}@media(max-width:370px){.holidaymark{font-size:7px}.holiday-filters .btn{padding:7px 8px}}
+
+
+.cloud-card{border:1px solid #e9c9dd;background:linear-gradient(145deg,#fffdfd,#fff3f8)}
+.cloud-status{border-radius:12px;background:#f8edf8;padding:11px 13px;font-size:12px;color:#805b86;margin:12px 0}
+.cloud-status.connected{background:#eaf8ef;color:#34734e}
+.cloud-label{display:block;font-size:12px;font-weight:700;margin:12px 0;color:var(--ink)}
+.cloud-label input{display:block;width:100%;margin-top:6px;border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff;color:var(--ink);font:inherit}
+.cloud-actions{display:flex;flex-wrap:wrap;gap:8px}
+.cloud-actions .btn{margin:0}
 </style></head>
 <body>
 <header><div class="brand"><span class="logo">♕</span><span class="brand-title">*･゜ﾟ･*:.｡..｡.:* Cyn’s work calendar*:.｡. .｡.:*･゜ﾟ･*</span></div></header>
 <main class="wrap">
 <section class="page active" id="page-calendar"><div class="card"><div class="monthbar"><button class="iconbtn" id="prev">‹</button><strong id="monthLabel"></strong><button class="iconbtn" id="next">›</button><button class="todaybtn" id="today">今天</button></div><div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div><div class="grid" id="grid"></div><div class="legend"><span><i class="dot day"></i>日班</span><span><i class="dot night"></i>夜班</span><span><i class="dot off"></i>休假</span><span><i class="dot overtime"></i>加班</span><span><i class="dot leave"></i>請假</span></div></div>
-<div class="card"><h2>當日排班</h2><div class="summary"><div class="bigicon night" id="detailIcon">☾</div><div class="summarymain"><strong id="detailTitle">夜班</strong><small id="detailDate"></small></div></div><div class="dateinfo" id="detailPhase"></div><div class="shift-editor"><h3>更改當天班別</h3><div class="shift-options" id="shiftOptions"><button type="button" data-shift="day" class="day">☀ 日班</button><button type="button" data-shift="night" class="night">☾ 夜班</button><button type="button" data-shift="off" class="off">♧ 休假</button><button type="button" data-shift="overtime" class="overtime">✦ 加班</button><button type="button" data-shift="leave" class="leave">♡ 請假</button></div><p class="notice">點選即可立即更改並自動儲存；再次點選「依照排班」可恢復原本輪班規則。</p><button type="button" class="btn" id="resetShift">依照排班規則</button></div></div>
+<div class="card"><h2>當日排班</h2><div class="summary"><div class="bigicon night" id="detailIcon">☾</div><div class="summarymain"><strong id="detailTitle">夜班</strong><small id="detailDate"></small></div></div><div class="dateinfo" id="detailPhase"></div><div class="holiday-detail" id="holidayDetail" aria-live="polite"></div><div class="shift-editor"><h3>更改當天班別</h3><div class="shift-options" id="shiftOptions"><button type="button" data-shift="day" class="day">☀ 日班</button><button type="button" data-shift="night" class="night">☾ 夜班</button><button type="button" data-shift="off" class="off">♧ 休假</button><button type="button" data-shift="overtime" class="overtime">✦ 加班</button><button type="button" data-shift="leave" class="leave">♡ 請假</button></div><p class="notice">點選即可立即更改並自動儲存；再次點選「依照排班」可恢復原本輪班規則。</p><button type="button" class="btn" id="resetShift">依照排班規則</button></div></div>
 <div class="card"><h2>今日心情・每日表情標記</h2><div class="mood-grid" id="moods"></div><p class="notice">點選表情即可標記所選日期的心情；再次點擊同一表情可取消。</p></div>
 <div class="card"><h2>當日備註</h2><textarea id="note" placeholder="例如：加班、約會、提醒事項…"></textarea><div class="btnrow"><button class="btn primary" id="save">儲存備註</button><button class="btn" id="clear">清除</button></div><p class="notice">心情與備註存在此瀏覽器本機，清除網站資料可能會刪除。</p></div></section>
-<section class="page" id="page-rules"><div class="card"><h2>排班規則</h2><div class="rule night"><b>☾ 夜班</b><br>主要上班日週三至週六，隔週休週六。時間：19:30～隔日 07:30。固定 8 週。</div><div class="rule day"><b>☀ 日班</b><br>主要上班日週三至週六，隔週休週三。時間：07:30～19:30。固定 8 週。</div><p class="notice">排班起點：2026/10/07 開始夜班；2026/10/21 切換日班；2026/10/28 是日班隔週休週三的那一週。日班八週後切換夜班八週，之後交替。</p></div><div class="card"><h2>班別時間</h2><div class="statsrow"><span>日班</span><b>07:30–19:30</b></div><div class="statsrow"><span>夜班</span><b>19:30–隔日 07:30</b></div></div></section>
+<section class="page" id="page-rules">
+<div class="card cloud-card"><h2>☁️ 雲端同步設定</h2>
+<p class="notice">登入後可在同一帳號的 iPhone 與電腦間同步班別覆寫、每日備註與心情。首次使用前，請先在 Supabase 建立資料表並套用專案附帶的 SQL。既有本機資料會與雲端資料合併，不會主動清除其他 iPhone 行事曆事件。</p>
+<div class="cloud-status" id="cloudStatus">目前：僅儲存在這台裝置</div>
+<label class="cloud-label">Supabase Project URL<input id="cloudUrl" type="url" placeholder="https://你的專案.supabase.co" autocomplete="url"></label>
+<label class="cloud-label">Supabase anon / publishable key<input id="cloudKey" type="password" placeholder="公開 anon / publishable key" autocomplete="off"></label>
+<label class="cloud-label">登入電子郵件<input id="cloudEmail" type="email" placeholder="you@example.com" autocomplete="email"></label>
+<div class="btnrow cloud-actions"><button type="button" class="btn primary" id="cloudLogin">儲存設定並寄送登入連結</button><button type="button" class="btn" id="cloudSyncNow">立即同步</button><button type="button" class="btn" id="cloudLogout">登出</button></div>
+<p class="notice" id="cloudMessage" role="status"></p>
+</div>
+<div class="card holiday-settings"><h2>🎉 各國國定假日與節日</h2><p class="notice">日期會標記在月曆上；可自由多選要顯示的國家，也可全部顯示或隱藏節日。台灣補假、日本法定假日及韓國農曆節日的未來日期，請以各國官方公告為準。</p><div class="holiday-filters" role="group" aria-label="假日顯示範圍"><button type="button" class="btn" data-holiday-filter="all">全部顯示</button><button type="button" class="btn" data-holiday-filter="TW">🇹🇼 台灣</button><button type="button" class="btn" data-holiday-filter="US">🇺🇸 美國</button><button type="button" class="btn" data-holiday-filter="JP">🇯🇵 日本</button><button type="button" class="btn" data-holiday-filter="KR">🇰🇷 韓國</button><button type="button" class="btn" data-holiday-filter="off">隱藏節日</button></div><div class="holiday-legend"><span><i class="holiday-dot tw"></i>台灣</span><span><i class="holiday-dot us"></i>美國</span><span><i class="holiday-dot jp"></i>日本</span><span><i class="holiday-dot kr"></i>韓國</span><span class="notice">點選日期可查看當日節日名稱</span></div></div><div class="card"><h2>📲 iPhone 行事曆提醒</h2><p class="notice">匯出未來 12 個月的日班、夜班與加班（從明天開始）；上班日會在前一天晚上 20:00 提醒。此功能只匯出日班、夜班與加班，並保留舊版事件的取消標記；iPhone 是否自動同步刪除仍取決於匯入方式與行事曆支援。</p><button type="button" class="btn primary" id="exportICS">匯出 iPhone 行事曆（.ics）</button><p class="notice">日班：07:30–19:30；夜班：19:30–隔日 07:30；加班會依當日所屬的日班／夜班階段自動套用對應時間。只匯出日班、夜班與加班事件。</p></div><div class="card"><h2>排班規則</h2><div class="rule night"><b>☾ 夜班</b><br>主要上班日週三至週六，隔週休週六。時間：19:30～隔日 07:30。固定 8 週。</div><div class="rule day"><b>☀ 日班</b><br>主要上班日週三至週六，隔週休週三。時間：07:30～19:30。固定 8 週。</div><p class="notice">排班起點：2026/10/07 開始夜班；2026/10/21 切換日班；2026/10/28 是日班隔週休週三的那一週。日班八週後切換夜班八週，之後交替。</p></div><div class="card"><h2>班別時間</h2><div class="statsrow"><span>日班</span><b>07:30–19:30</b></div><div class="statsrow"><span>夜班</span><b>19:30–隔日 07:30</b></div></div></section>
 <section class="page" id="page-future"><div class="card"><h2>未來輪班排程・倒數</h2><p class="notice">顯示各階段日期，以及距離開始或結束還有幾天。</p><div id="phases"></div></div></section>
 <section class="page" id="page-stats"><div class="card"><h2 id="statsTitle">本月統計</h2><div id="stats"></div><div class="notice">心情統計只計算已標記的日期。</div><div id="moodStats"></div></div></section>
 <section class="page" id="page-appearance"><div class="card"><h2>🫧 外觀設定</h2><p class="notice">自訂卡片背景、主題色與選單圖案。設定會儲存在這個瀏覽器中。</p><div class="appearance-preview"><div class="preview-orb" id="appearanceOrb">🫧</div><div><strong>Cyn’s work calendar</strong><small>外觀即時預覽</small></div></div></div><div class="card"><h2>卡片背景圖片</h2><p class="notice">只更換卡片模組內的背景，不會影響整個網頁。建議圖片 1.5 MB 以下。</p><input id="backgroundFile" type="file" accept="image/*"><div class="btnrow"><button class="btn" type="button" id="clearBackground">移除卡片背景</button></div><div class="appearance-control"><label for="cardBgOverlay">卡片背景柔和度：<span id="cardBgOverlayValue">28</span>%</label><input type="range" id="cardBgOverlay" min="0" max="90" step="5" value="28"><p class="notice">數值越高，白色柔光遮罩越明顯；數值越低，圖片越清楚。</p></div><div class="appearance-control"><label for="cardBgBlur">卡片背景模糊：<span id="cardBgBlurValue">0</span> px</label><input type="range" id="cardBgBlur" min="0" max="12" step="1" value="0"></div></div><div class="card"><h2>整個網頁背景圖片</h2><p class="notice">獨立設定頁面底色背景，與上方卡片背景不同。建議圖片 1.5 MB 以下。</p><input id="pageBackgroundFile" type="file" accept="image/*"><div class="btnrow"><button class="btn" type="button" id="clearPageBackground">移除網頁背景</button></div><div class="appearance-control"><label for="pageBgOverlay">網頁背景柔和度：<span id="pageBgOverlayValue">30</span>%</label><input type="range" id="pageBgOverlay" min="0" max="90" step="5" value="30"><p class="notice">調高可讓背景更淡，避免影響文字閱讀。</p></div></div><div class="card"><h2>主題色</h2><div class="color-row"><input type="color" id="themeColor" value="#b89ab9" aria-label="選擇主題色"><span id="themeHex">#b89ab9</span></div><p class="notice">變更後會立即套用到選取日期、導覽選單與主要按鈕。</p><button class="btn" type="button" id="resetTheme">恢復珍珠紫</button><div class="appearance-control"><label for="brandIconFile">自訂頁首功能圖案</label><input id="brandIconFile" type="file" accept="image/*"><button class="btn" type="button" id="clearBrandIcon">恢復預設圖案</button><p class="notice">可上傳自己的圖片作為左上角標誌；底部五個選單圖案也能分別上傳。</p></div></div><div class="card"><h2>班別專屬主題色</h2><p class="notice">為日班、夜班、休假、加班、請假分別選擇顏色，月曆標記和班別按鈕會同步更新。</p><div class="category-colors"><label class="category-color-item">☀ 日班<input type="color" id="colorDay" value="#d2a13b"></label><label class="category-color-item">☾ 夜班<input type="color" id="colorNight" value="#7779d4"></label><label class="category-color-item">♧ 休假<input type="color" id="colorOff" value="#3da17e"></label><label class="category-color-item">✦ 加班<input type="color" id="colorOvertime" value="#d96a96"></label><label class="category-color-item">♡ 請假<input type="color" id="colorLeave" value="#9a6bc0"></label></div><button class="btn" type="button" id="resetCategoryColors">恢復班別預設色</button></div><div class="card"><h2>選單圖案風格</h2><select id="iconStyle" class="settings-select"><option value="bubble">🫧 珍珠泡泡</option><option value="heart">♡ 愛心</option><option value="sparkle">✧ 星星閃光</option><option value="flower">✿ 花朵手帳</option><option value="moon">☾ 月亮星空</option></select><p class="notice">會同步調整頁首圖案、底部選單圖示與班別按鈕裝飾。</p><div class="card"><h2>自訂選單圖片</h2><p class="notice">可分別上傳五個底部選單的圖案圖片（PNG、JPG、WebP），會保存在此瀏覽器。建議單張 250 KB 以下。若要恢復文字圖示，清除該項圖片即可。</p><div class="upload-row"><label for="navIcon1">行事曆圖案</label><input id="navIcon1" data-nav-icon="0" type="file" accept="image/*"><button class="btn clear-nav-icon" data-index="0" type="button">清除圖片</button></div><div class="upload-row"><label for="navIcon2">規則圖案</label><input id="navIcon2" data-nav-icon="1" type="file" accept="image/*"><button class="btn clear-nav-icon" data-index="1" type="button">清除圖片</button></div><div class="upload-row"><label for="navIcon3">未來排程圖案</label><input id="navIcon3" data-nav-icon="2" type="file" accept="image/*"><button class="btn clear-nav-icon" data-index="2" type="button">清除圖片</button></div><div class="upload-row"><label for="navIcon4">統計圖案</label><input id="navIcon4" data-nav-icon="3" type="file" accept="image/*"><button class="btn clear-nav-icon" data-index="3" type="button">清除圖片</button></div><div class="upload-row"><label for="navIcon5">外觀圖案</label><input id="navIcon5" data-nav-icon="4" type="file" accept="image/*"><button class="btn clear-nav-icon" data-index="4" type="button">清除圖片</button></div></div><div class="card"><h2>卡片邊框與外觀</h2><div class="appearance-control"><label for="cardBorderColor">卡片邊框顏色</label><div class="color-row"><input type="color" id="cardBorderColor" value="#eadce9"><span id="cardBorderHex">#eadce9</span></div></div><div class="appearance-control"><label for="cardBorderWidth">邊框粗細：<span id="cardBorderWidthValue">1</span> px</label><input type="range" id="cardBorderWidth" min="0" max="6" step="1" value="1"></div><div class="appearance-control"><label for="cardRadius">卡片圓角：<span id="cardRadiusValue">27</span> px</label><input type="range" id="cardRadius" min="8" max="36" step="1" value="27"></div><button class="btn" type="button" id="resetCardStyle">重設卡片邊框</button><p class="notice">卡片背景圖片可在上方「卡片背景圖片」上傳；邊框顏色、粗細和圓角會即時預覽並自動儲存。</p></div><div class="card"><h2>各模組獨立背景與版面</h2><p class="notice">每個功能卡片都能獨立上傳背景圖，調整卡片寬度和靠左／置中／靠右，也能在同一頁內上下移動。圖片會自動縮小以減少儲存空間。</p><div id="moduleStyleList"></div></div><button class="btn" type="button" id="resetModuleStyles">重設各模組版面</button><button class="btn" type="button" id="resetAppearance">重設全部外觀</button></div></section></main><nav class="bottomnav"><button class="active" data-page="calendar"><b>▦</b>行事曆</button><button data-page="rules"><b>♧</b>規則</button><button data-page="future"><b>↻</b>未來排程</button><button data-page="stats"><b>◷</b>統計</button><button data-page="appearance"><b>🫧</b>外觀</button></nav><div id="toast" style="display:none;position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#654d6b;color:white;border-radius:12px;padding:11px 16px;font-size:13px;z-index:20"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const START=new Date(2026,9,7),DAYSTART=new Date(2026,9,21),DAY=86400000,MOODS=[['😍','超開心'],['😊','開心'],['😌','平靜'],['😐','普通'],['🥱','疲倦'],['😣','壓力'],['😭','低落']];
 let view=new Date(2026,9,1),selected=new Date(2026,9,7),notes={},moodData={},shiftOverrides={};try{notes=JSON.parse(localStorage.getItem('pearlShiftNotes')||'{}');moodData=JSON.parse(localStorage.getItem('pearlShiftMoods')||'{}');shiftOverrides=JSON.parse(localStorage.getItem('cynShiftOverrides')||'{}')}catch(e){}
@@ -179,9 +201,62 @@ function phase(d){if(d<DAYSTART)return{type:'night',start:START,end:add(DAYSTART
 function calculatedShift(d){let p=phase(d),dow=d.getDay();if(p.n===-1){if(d<START)return'off';let w=Math.floor(diff(weekStart(d),weekStart(START))/7);if(dow>=3&&dow<=5)return'night';if(dow===6&&w%2===0)return'night';return'off'}let w=Math.floor(diff(weekStart(d),weekStart(p.start))/7);if(p.type==='night'){if(dow>=3&&dow<=5)return'night';if(dow===6&&w%2===0)return'night';return'off'}if(dow>=3&&dow<=6){if(dow===3&&w%2===1)return'off';return'day'}return'off'}
 function shift(d){return shiftOverrides[key(d)]||calculatedShift(d)}
 const label=t=>t==='day'?'日班':t==='night'?'夜班':t==='overtime'?'加班':t==='leave'?'請假':'休假';
+// Taiwan holidays/festivals and US federal/cultural holidays.
+const holidayFilterKey='cynHolidayFilter';let holidayFilter=(()=>{try{const v=JSON.parse(localStorage.getItem(holidayFilterKey));return Array.isArray(v)?v:(['TW','US','JP','KR'].includes(v)?[v]:'all')}catch(e){const v=localStorage.getItem(holidayFilterKey);return ['TW','US','JP','KR'].includes(v)?[v]:'all'}})();
+const twLunarDates={
+  2026:{newYear:'2026-02-17',dragon:'2026-06-19',mid:'2026-09-25',qingming:'2026-04-05'},
+  2027:{newYear:'2027-02-06',dragon:'2027-06-09',mid:'2027-09-15',qingming:'2027-04-05'},
+  2028:{newYear:'2028-01-26',dragon:'2028-05-28',mid:'2028-10-03',qingming:'2028-04-04'},
+  2029:{newYear:'2029-02-13',dragon:'2029-06-16',mid:'2029-09-22',qingming:'2029-04-04'},
+  2030:{newYear:'2030-02-03',dragon:'2030-06-05',mid:'2030-09-12',qingming:'2030-04-05'},
+  2031:{newYear:'2031-01-23',dragon:'2031-05-27',mid:'2031-10-01',qingming:'2031-04-05'},
+  2032:{newYear:'2032-02-11',dragon:'2032-06-14',mid:'2032-09-19',qingming:'2032-04-04'},
+  2033:{newYear:'2033-01-31',dragon:'2033-06-03',mid:'2033-09-08',qingming:'2033-04-05'},
+  2034:{newYear:'2034-02-19',dragon:'2034-05-24',mid:'2034-09-27',qingming:'2034-04-05'},
+  2035:{newYear:'2035-02-08',dragon:'2035-06-12',mid:'2035-09-16',qingming:'2035-04-05'}
+};
+const holidayDate=(y,m,d)=>`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+function nthWeekday(y,m,weekday,n){let d=new Date(y,m-1,1),offset=(weekday-d.getDay()+7)%7;return new Date(y,m-1,1+offset+7*(n-1))}
+function lastWeekday(y,m,weekday){let d=new Date(y,m,0);d.setDate(d.getDate()-(d.getDay()-weekday+7)%7);return d}
+function observedUS(y,m,d){let date=new Date(y,m-1,d);if(date.getDay()===6)date.setDate(date.getDate()-1);else if(date.getDay()===0)date.setDate(date.getDate()+1);return date}
+function easterSunday(year){let a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;return new Date(year,month-1,day)}
+function addHoliday(out,date,country,name,kind='節日'){if(date instanceof Date)date=key(date);if(!date)return;out[date]=out[date]||[];if(!out[date].some(x=>x.country===country&&x.name===name))out[date].push({country,name,kind})}
+function holidaysForYear(year){const out={};const addRange=(start,end,country,name)=>{let d=new Date(start+'T12:00:00');const last=new Date(end+'T12:00:00');while(d<=last){addHoliday(out,key(d),country,name,'連假');d.setDate(d.getDate()+1)}};
+ // Taiwan fixed commemorative days and major festivals.
+ [[1,1,'元旦／開國紀念日'],[2,28,'和平紀念日'],[4,4,'兒童節'],[5,1,'勞動節'],[9,28,'教師節／孔子誕辰'],[10,10,'國慶日'],[10,25,'臺灣光復紀念日'],[12,25,'行憲紀念日']].forEach(([m,d,n])=>addHoliday(out,holidayDate(year,m,d),'TW',n,'國定／紀念日'));
+ const lunar=twLunarDates[year];if(lunar){addHoliday(out,lunar.newYear,'TW','農曆春節','傳統節日');addHoliday(out,lunar.dragon,'TW','端午節','傳統節日');addHoliday(out,lunar.mid,'TW','中秋節','傳統節日');addHoliday(out,lunar.qingming,'TW','清明節','傳統節日')}
+ // 2026 government-office holiday blocks are based on DGPA's published calendar.
+ if(year===2026){addRange('2026-02-14','2026-02-22','TW','春節連假');addRange('2026-02-27','2026-03-01','TW','和平紀念日連假');addRange('2026-04-03','2026-04-06','TW','兒童節／清明連假');addRange('2026-06-19','2026-06-21','TW','端午連假');addRange('2026-09-25','2026-09-28','TW','中秋／教師節連假');addRange('2026-10-09','2026-10-11','TW','國慶日連假');addRange('2026-10-24','2026-10-26','TW','臺灣光復紀念日連假');addRange('2026-12-25','2026-12-27','TW','行憲紀念日連假')}
+ // US federal holidays; observed dates are shown separately where they differ.
+ const fixed=[['元旦／New Year’s Day',1,1],['Juneteenth 獨立紀念日',6,19],['Independence Day 美國獨立日',7,4],['Veterans Day 退伍軍人節',11,11],['Christmas Day 聖誕節',12,25]];
+ fixed.forEach(([name,m,d])=>{addHoliday(out,holidayDate(year,m,d),'US',name,'聯邦／節日');const obs=observedUS(year,m,d);if(key(obs)!==holidayDate(year,m,d))addHoliday(out,key(obs),'US',name+'（補休日）','聯邦補休')});const nextNewYearObserved=observedUS(year+1,1,1);if(nextNewYearObserved.getFullYear()===year)addHoliday(out,key(nextNewYearObserved),'US','元旦／New Year’s Day（補休日）','聯邦補休');
+ addHoliday(out,nthWeekday(year,1,1,3),'US','Martin Luther King Jr. Day','聯邦假日');addHoliday(out,nthWeekday(year,2,1,3),'US','Washington’s Birthday／總統日','聯邦假日');addHoliday(out,lastWeekday(year,5,1),'US','Memorial Day／陣亡將士紀念日','聯邦假日');addHoliday(out,nthWeekday(year,9,1,1),'US','Labor Day／勞動節','聯邦假日');addHoliday(out,nthWeekday(year,10,1,2),'US','Columbus Day／原住民日','聯邦假日');addHoliday(out,nthWeekday(year,11,4,4),'US','Thanksgiving 感恩節','聯邦假日');
+ // Commonly observed cultural dates in the United States.
+ addHoliday(out,holidayDate(year,2,14),'US','Valentine’s Day 情人節');addHoliday(out,easterSunday(year),'US','Easter 復活節');addHoliday(out,nthWeekday(year,5,0,2),'US','Mother’s Day 母親節');addHoliday(out,nthWeekday(year,6,0,3),'US','Father’s Day 父親節');addHoliday(out,holidayDate(year,10,31),'US','Halloween 萬聖節');
+ // Japan: national holidays (some equinox/substitute dates are calculated; verify future years with Cabinet Office).
+ const jpFixed=[[1,1,'元日'],[2,11,'建國紀念日'],[2,23,'天皇誕生日'],[4,29,'昭和之日'],[5,3,'憲法紀念日'],[5,4,'綠之日'],[5,5,'兒童節'],[8,11,'山之日'],[11,3,'文化之日'],[11,23,'勤勞感謝日']];
+ jpFixed.forEach(([m,d,n])=>addHoliday(out,holidayDate(year,m,d),'JP',n,'日本國定假日'));
+ [[1,2,'成人之日'],[7,3,'海之日'],[9,3,'敬老之日'],[10,2,'體育之日']].forEach(([m,nth,n])=>addHoliday(out,key(nthWeekday(year,m,1,nth)),'JP',n,'日本國定假日'));
+ const ve=Math.floor(20.8431+0.242194*(year-1980)-Math.floor((year-1980)/4)),ae=Math.floor(23.2488+0.242194*(year-1980)-Math.floor((year-1980)/4));
+ addHoliday(out,holidayDate(year,3,ve),'JP','春分之日','日本國定假日');addHoliday(out,holidayDate(year,9,ae),'JP','秋分之日','日本國定假日');
+ // Japan substitute holidays and citizen's holidays (approximation based on listed national dates).
+ const jpDays=Object.keys(out).filter(k=>out[k].some(h=>h.country==='JP')).sort();
+ for(const k of jpDays){const d=new Date(k+'T12:00:00');if(d.getDay()===0){let sub=new Date(d);do{sub.setDate(sub.getDate()+1)}while(out[key(sub)]&&out[key(sub)].some(h=>h.country==='JP'));addHoliday(out,key(sub),'JP','振替休日（補假）','日本補假')}}
+ for(let m=1;m<=12;m++){let days=new Date(year,m,0).getDate();for(let day=2;day<days;day++){const d=new Date(year,m-1,day),k=key(d),prev=key(new Date(year,m-1,day-1)),next=key(new Date(year,m-1,day+1));if(d.getDay()!==0&&!(out[k]||[]).some(h=>h.country==='JP')&&out[prev]?.some(h=>h.country==='JP')&&out[next]?.some(h=>h.country==='JP'))addHoliday(out,k,'JP','國民之休日','日本國定假日')}}
+ // South Korea: fixed public holidays and lunar holidays for 2026-2035.
+ [[1,1,'元旦'],[3,1,'三一節'],[5,5,'兒童節'],[6,6,'顯忠日'],[7,17,'制憲節'],[8,15,'光復節'],[10,3,'開天節'],[10,9,'韓文日'],[12,25,'聖誕節'],[5,1,'勞動節']].forEach(([m,d,n])=>addHoliday(out,holidayDate(year,m,d),'KR',n,'韓國節日'));
+ const krLunar={2026:{new:'2026-02-17',buddha:'2026-05-24',chuseok:'2026-09-25'},2027:{new:'2027-02-07',buddha:'2027-05-13',chuseok:'2027-09-15'},2028:{new:'2028-01-26',buddha:'2028-05-02',chuseok:'2028-10-03'},2029:{new:'2029-02-13',buddha:'2029-05-20',chuseok:'2029-09-22'},2030:{new:'2030-02-03',buddha:'2030-05-09',chuseok:'2030-09-12'},2031:{new:'2031-01-23',buddha:'2031-05-28',chuseok:'2031-10-01'},2032:{new:'2032-02-11',buddha:'2032-05-16',chuseok:'2032-09-19'},2033:{new:'2033-01-31',buddha:'2033-05-06',chuseok:'2033-09-08'},2034:{new:'2034-02-19',buddha:'2034-05-25',chuseok:'2034-09-27'},2035:{new:'2035-02-08',buddha:'2035-05-15',chuseok:'2035-09-16'}};
+ const kr=krLunar[year];if(kr){const ny=new Date(kr.new+'T12:00:00');for(let off=-1;off<=1;off++)addHoliday(out,key(add(ny,off)),'KR','春節（설날）','韓國農曆假日');addHoliday(out,kr.buddha,'KR','佛誕日（부처님 오신 날）','韓國農曆假日');const ch=new Date(kr.chuseok+'T12:00:00');for(let off=-1;off<=1;off++)addHoliday(out,key(add(ch,off)),'KR','中秋節（추석）','韓國農曆假日')}
+ return out}
+const holidayCache={};function holidaysOn(date){const y=date.getFullYear();if(!holidayCache[y])holidayCache[y]=holidaysForYear(y);return holidayCache[y][key(date)]||[]}
+function visibleHolidays(date){const list=holidaysOn(date);return holidayFilter==='off'?[]:holidayFilter==='all'?list:list.filter(h=>holidayFilter.includes(h.country))}
+function renderHolidayDetail(date){const el=document.getElementById('holidayDetail');if(!el)return;const list=visibleHolidays(date);el.innerHTML=list.map(h=>`<span class="holiday-chip ${h.country.toLowerCase()}"><small>${({TW:'🇹🇼',US:'🇺🇸',JP:'🇯🇵',KR:'🇰🇷'})[h.country]}</small>${h.name}</span>`).join('');if(!list.length)el.innerHTML=''}
+function setHolidayFilter(value){if(value==='all')holidayFilter='all';else if(value==='off')holidayFilter='off';else if(holidayFilter==='all'||holidayFilter==='off')holidayFilter=[value];else{holidayFilter=holidayFilter.includes(value)?holidayFilter.filter(x=>x!==value):[...holidayFilter,value];if(!holidayFilter.length)holidayFilter='off'}localStorage.setItem(holidayFilterKey,JSON.stringify(holidayFilter));document.querySelectorAll('[data-holiday-filter]').forEach(b=>{const v=b.dataset.holidayFilter;b.classList.toggle('active',v==='all'?holidayFilter==='all':v==='off'?holidayFilter==='off':Array.isArray(holidayFilter)&&holidayFilter.includes(v))});render()}
+document.querySelectorAll('[data-holiday-filter]').forEach(b=>b.addEventListener('click',()=>setHolidayFilter(b.dataset.holidayFilter)));
+document.querySelectorAll('[data-holiday-filter]').forEach(b=>{const v=b.dataset.holidayFilter;b.classList.toggle('active',v==='all'?holidayFilter==='all':v==='off'?holidayFilter==='off':Array.isArray(holidayFilter)&&holidayFilter.includes(v))});
 function render(){document.getElementById('monthLabel').textContent=`${view.getFullYear()} 年 ${view.getMonth()+1} 月`;let grid=document.getElementById('grid');grid.innerHTML='';let first=new Date(view.getFullYear(),view.getMonth(),1),start=add(first,-first.getDay()),now=new Date();now.setHours(0,0,0,0);
-for(let i=0;i<42;i++){let d=add(start,i),t=shift(d),k=key(d),el=document.createElement('div');el.className='cell'+(d.getMonth()!==view.getMonth()?' out':'')+(key(d)===key(selected)?' sel':'')+(key(d)===key(now)?' today':'');el.innerHTML=`<span class="num">${d.getDate()}</span><span class="pill ${t}">${label(t)}</span><span class="moodmark">${moodData[k]||''}</span>${notes[k]?'<div class="moodmark">✎</div>':''}`;el.onclick=()=>{selected=d;render()};grid.appendChild(el)}
-let t=shift(selected),p=phase(selected);document.getElementById('detailTitle').textContent=label(t);document.getElementById('detailDate').textContent=fmt(selected);document.getElementById('detailIcon').textContent=t==='night'?'☾':t==='day'?'☀':t==='overtime'?'✦':t==='leave'?'♡':'♧';document.getElementById('detailIcon').className='bigicon '+t;document.getElementById('detailPhase').textContent=`${p.type==='day'?'日班':'夜班'}階段：${fmt(p.start)} ～ ${fmt(p.end)}；${t==='night'?'上班時間 19:30～隔日 07:30':t==='day'?'上班時間 07:30～19:30':t==='overtime'?'已手動標記為加班':t==='leave'?'已手動標記為請假':'今天休假'}`;document.getElementById('note').value=notes[key(selected)]||'';document.querySelectorAll('#shiftOptions button').forEach(b=>b.classList.toggle('active',t===b.dataset.shift));renderMoods();renderStats();renderPhases()}
+for(let i=0;i<42;i++){let d=add(start,i),t=shift(d),k=key(d),el=document.createElement('div');el.className='cell'+(d.getMonth()!==view.getMonth()?' out':'')+(key(d)===key(selected)?' sel':'')+(key(d)===key(now)?' today':'');const dayHolidays=visibleHolidays(d);const holidayMark=dayHolidays.length?`<span class="holidaymark ${dayHolidays[0].country.toLowerCase()}" title="${dayHolidays.map(h=>h.name).join('、')}">${({TW:'🇹🇼',US:'🇺🇸',JP:'🇯🇵',KR:'🇰🇷'})[dayHolidays[0].country]} ${dayHolidays[0].name.replace(/／.*$/,'').replace(/\（.*?\）/g,'').slice(0,7)}</span>`:'';el.innerHTML=`<span class="num">${d.getDate()}</span><span class="pill ${t}">${label(t)}</span>${holidayMark}<span class="moodmark">${moodData[k]||''}</span>${notes[k]?'<div class="moodmark">✎</div>':''}`;el.onclick=()=>{selected=d;render()};grid.appendChild(el)}
+let t=shift(selected),p=phase(selected);document.getElementById('detailTitle').textContent=label(t);document.getElementById('detailDate').textContent=fmt(selected);document.getElementById('detailIcon').textContent=t==='night'?'☾':t==='day'?'☀':t==='overtime'?'✦':t==='leave'?'♡':'♧';document.getElementById('detailIcon').className='bigicon '+t;document.getElementById('detailPhase').textContent=`${p.type==='day'?'日班':'夜班'}階段：${fmt(p.start)} ～ ${fmt(p.end)}；${t==='night'?'上班時間 19:30～隔日 07:30':t==='day'?'上班時間 07:30～19:30':t==='overtime'?'已手動標記為加班':t==='leave'?'已手動標記為請假':'今天休假'}`;renderHolidayDetail(selected);document.getElementById('note').value=notes[key(selected)]||'';document.querySelectorAll('#shiftOptions button').forEach(b=>b.classList.toggle('active',t===b.dataset.shift));renderMoods();renderStats();renderPhases()}
 function renderMoods(){let box=document.getElementById('moods'),current=moodData[key(selected)]||'';box.innerHTML=MOODS.map(([e,n])=>`<button class="mood ${current===e?'active':''}" data-mood="${e}">${e}<small>${n}</small></button>`).join('');box.querySelectorAll('button').forEach(b=>b.onclick=()=>{let k=key(selected);if(moodData[k]===b.dataset.mood)delete moodData[k];else moodData[k]=b.dataset.mood;localStorage.setItem('pearlShiftMoods',JSON.stringify(moodData));render();showToast('心情已更新')})}
 function renderStats(){let total={day:0,night:0,off:0,overtime:0,leave:0},n=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();for(let i=1;i<=n;i++)total[shift(new Date(view.getFullYear(),view.getMonth(),i))]++;document.getElementById('statsTitle').textContent=`${view.getFullYear()} 年 ${view.getMonth()+1} 月統計`;document.getElementById('stats').innerHTML=[['day','日班'],['night','夜班'],['off','休假'],['overtime','加班'],['leave','請假']].map(([k,v])=>`<div class="statsrow"><span>${v}</span><b>${total[k]} 天</b></div>`).join('')+`<p class="notice">本月共 ${n} 天。</p>`;let counts={};for(let i=1;i<=n;i++){let m=moodData[key(new Date(view.getFullYear(),view.getMonth(),i))];if(m)counts[m]=(counts[m]||0)+1}document.getElementById('moodStats').innerHTML=Object.entries(counts).map(([e,c])=>`<div class="statsrow"><span>${e} ${MOODS.find(x=>x[0]===e)?.[1]||''}</span><span>${c} 天</span></div>`).join('')||'<p class="notice">本月尚未標記心情。</p>'}
 function daysUntil(d){let now=new Date();now.setHours(0,0,0,0);return diff(d,now)}
@@ -190,6 +265,30 @@ function renderPhases(){let items=[{type:'night',start:START,end:add(DAYSTART,-1
 document.getElementById('prev').onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()-1,1);render()};document.getElementById('next').onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()+1,1);render()};document.getElementById('today').onclick=()=>{selected=new Date();view=new Date(selected.getFullYear(),selected.getMonth(),1);render()};
 document.querySelectorAll('#shiftOptions button').forEach(b=>b.onclick=()=>{const k=key(selected);shiftOverrides[k]=b.dataset.shift;localStorage.setItem('cynShiftOverrides',JSON.stringify(shiftOverrides));render();showToast(`已將 ${fmt(selected)} 設為${label(b.dataset.shift)}`)});document.getElementById('resetShift').onclick=()=>{delete shiftOverrides[key(selected)];localStorage.setItem('cynShiftOverrides',JSON.stringify(shiftOverrides));render();showToast('已恢復原本排班規則')};
 document.getElementById('save').onclick=()=>{let v=document.getElementById('note').value.trim();if(v)notes[key(selected)]=v;else delete notes[key(selected)];localStorage.setItem('pearlShiftNotes',JSON.stringify(notes));render();showToast('備註已儲存')};document.getElementById('clear').onclick=()=>{delete notes[key(selected)];localStorage.setItem('pearlShiftNotes',JSON.stringify(notes));render();showToast('備註已清除')};function showToast(s){let e=document.getElementById('toast');e.textContent=s;e.style.display='block';setTimeout(()=>e.style.display='none',1800)}
+function icsEscape(value){return String(value).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;')}
+function icsLocalStamp(d,hour,minute){return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}T${String(hour).padStart(2,'0')}${String(minute).padStart(2,'0')}00`}
+function icsUtcStamp(d,hour,minute){const utc=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),hour-8,minute,0));return `${utc.getUTCFullYear()}${String(utc.getUTCMonth()+1).padStart(2,'0')}${String(utc.getUTCDate()).padStart(2,'0')}T${String(utc.getUTCHours()).padStart(2,'0')}${String(utc.getUTCMinutes()).padStart(2,'0')}00Z`}
+function exportWorkCalendarICS(){
+ const today=new Date();today.setHours(0,0,0,0);const first=add(today,1),end=add(first,365),events=[];
+ for(let d=new Date(first);d<end;d=add(d,1)){
+  const type=shift(d);
+  // 保留舊版每個日期、每種班別 UID 的取消標記，供行事曆用相同 UID 清理舊事件。
+  for(const oldType of ['day','night','overtime'])events.push(['BEGIN:VEVENT',`UID:cyn-work-${key(d)}-${oldType}@cyn-work-calendar`,`DTSTAMP:${icsUtcStamp(today,12,0)}`,'STATUS:CANCELLED','SUMMARY:已取消的舊版班表提醒','END:VEVENT'].join('\r\n'));
+  if(!['day','night','overtime'].includes(type))continue;
+  const timeType=type==='overtime'?phase(d).type:type==='night'?'night':'day';let startHour=timeType==='night'?19:7,startMinute=30,endDate=timeType==='night'?add(d,1):d,endHour=timeType==='night'?7:19,endMinute=30;
+  const uid=`cyn-work-${key(d)}@cyn-work-calendar`;
+  const title=`${type==='day'?'☀ 日班':type==='night'?'☾ 夜班':'✦ 加班'}｜Cyn’s work calendar`;
+  const desc=type==='overtime'?`加班時間依${timeType==='night'?'夜班':'日班'}階段自動判定：${timeType==='night'?'19:30–隔日 07:30':'07:30–19:30'}`:type==='day'?'上班時間：07:30–19:30':'上班時間：19:30–隔日 07:30';
+  const item=['BEGIN:VEVENT',`UID:${uid}`,`DTSTAMP:${icsUtcStamp(today,12,0)}`,`DTSTART;TZID=Asia/Taipei:${icsLocalStamp(d,startHour,startMinute)}`,`DTEND;TZID=Asia/Taipei:${icsLocalStamp(endDate,endHour,endMinute)}`,`SUMMARY:${icsEscape(title)}`,`DESCRIPTION:${icsEscape(desc)}`];
+  item.push('BEGIN:VALARM','ACTION:DISPLAY',`TRIGGER:-PT${timeType==='night'?'23H30M':'11H30M'}`,`DESCRIPTION:${icsEscape('明天上班提醒：'+label(type))}`,'END:VALARM');
+  item.push('END:VEVENT');events.push(item.join('\r\n'));
+ }
+ if(!events.length){showToast('沒有可匯出的未來班表');return}
+ const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Cyn Work Calendar//iPhone Shift Reminders//ZH','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Cyn’s work calendar','X-WR-TIMEZONE:Asia/Taipei','BEGIN:VTIMEZONE','TZID:Asia/Taipei','X-LIC-LOCATION:Asia/Taipei','BEGIN:STANDARD','TZOFFSETFROM:+0800','TZOFFSETTO:+0800','TZNAME:CST','DTSTART:19700101T000000','END:STANDARD','END:VTIMEZONE',...events,'END:VCALENDAR'];
+ const folded=lines.join('\r\n').replace(/[^\r\n]{74,}/g,line=>line.match(/.{1,73}/g).join('\r\n '));
+ const blob=new Blob([folded+'\r\n'],{type:'text/calendar;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Cyn_work_calendar_iPhone_reminders.ics';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);showToast('已匯出未來 12 個月班表；加班依日班／夜班階段判定')
+}
+document.getElementById('exportICS').addEventListener('click',exportWorkCalendarICS);
 
 const appearanceDefaults={theme:'#b89ab9',iconStyle:'bubble'};
 const iconThemes={bubble:{logo:'🫧',ornament:'"🫧　·　✦　·　🫧"',nav:['▦','♧','↻','◷','🫧'],shift:['☀','☾','🫧','✦','♡']},heart:{logo:'♡',ornament:'"♡　·　♥　·　♡"',nav:['♡','♥','↻','◷','♡'],shift:['☀','☾','♡','♥','♡']},sparkle:{logo:'✧',ornament:'"✧　·　✦　·　✧"',nav:['✧','✦','↻','◷','✧'],shift:['☀','☾','✧','✦','✧']},flower:{logo:'✿',ornament:'"✿　·　❀　·　✿"',nav:['✿','❀','↻','◷','✿'],shift:['☀','☾','✿','❀','✿']},moon:{logo:'☾',ornament:'"☾　·　✦　·　☾"',nav:['☾','☼','↻','◷','☾'],shift:['☀','☾','☽','✦','☾']}};
@@ -242,5 +341,89 @@ function renderModuleSettings(){const list=document.getElementById('moduleStyleL
 restoreModuleOrder();renderModuleSettings();document.getElementById('resetModuleStyles').onclick=()=>{moduleStyles={};persistModuleStyles();localStorage.removeItem('cynModuleOrder');getModuleCards().forEach(item=>{item.card.classList.remove('module-custom-width','module-align-left','module-align-center','module-align-right');item.card.style.removeProperty('--module-width');const layer=item.card.querySelector(':scope > .card-bg-layer');if(layer)layer.style.backgroundImage=''});renderModuleSettings();showToast('各模組版面已重設')};
 
 document.querySelectorAll('.bottomnav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bottomnav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+b.dataset.page));window.scrollTo({top:0,behavior:'smooth'})});
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));render();
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+// ===== Cloud sync add-on (calendar overrides, notes, moods) =====
+// Cloud stores only this app's selected calendar data; unrelated iPhone calendar events are never touched here.
+const CLOUD_CONFIG_KEY='cynCloudConfigV1';
+const CLOUD_KEYS=['cynShiftOverrides','pearlShiftNotes','pearlShiftMoods'];
+let cloudClient=null, cloudUser=null, cloudChannel=null, cloudApplying=false, cloudSyncTimer=null;
+function cloudMessage(text){const el=document.getElementById('cloudMessage');if(el)el.textContent=text;}
+function cloudStatus(text,connected=false){const el=document.getElementById('cloudStatus');if(el){el.textContent='目前：'+text;el.classList.toggle('connected',connected)}}
+function readCloudConfig(){try{return JSON.parse(localStorage.getItem(CLOUD_CONFIG_KEY)||'null')}catch(e){return null}}
+function readCalendarPayload(){const p={};for(const k of CLOUD_KEYS){try{p[k]=JSON.parse(localStorage.getItem(k)||'{}')}catch(e){p[k]={}}}return p}
+function writeCalendarPayload(payload){cloudApplying=true;try{for(const k of CLOUD_KEYS){if(payload&&payload[k]&&typeof payload[k]==='object')localStorage.setItem(k,JSON.stringify(payload[k]));else if(!localStorage.getItem(k))localStorage.setItem(k,'{}')}}finally{cloudApplying=false}}
+function mergeCalendarPayload(local,remote){const out={};for(const k of CLOUD_KEYS){out[k]={...(remote?.[k]||{}),...(local?.[k]||{})}}return out}
+async function cloudConnect(config,sendMagicLink=false){
+ if(!window.supabase)throw new Error('Supabase SDK 載入失敗，請確認網路連線。');
+ if(!config?.url||!config?.key)throw new Error('請先填寫 Supabase Project URL 與 anon / publishable key。');
+ cloudClient=window.supabase.createClient(config.url,config.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+ const {data:sessionData,error:sessionError}=await cloudClient.auth.getSession();if(sessionError)throw sessionError;
+ cloudUser=sessionData.session?.user||null;
+ if(sendMagicLink){
+   const email=document.getElementById('cloudEmail').value.trim();if(!email)throw new Error('請輸入登入電子郵件。');
+   const {error}=await cloudClient.auth.signInWithOtp({email,options:{emailRedirectTo:location.href}});
+   if(error)throw error;
+   cloudStatus('已寄出登入連結，請到信箱完成登入');cloudMessage('登入連結已寄出。請在同一台裝置開啟郵件中的連結，再回到此頁。');return;
+ }
+ if(!cloudUser){cloudStatus('設定已儲存，尚未登入');cloudMessage('設定已儲存。請按「儲存設定並寄送登入連結」完成登入。');return;}
+ await cloudInitialMerge();
+ if(cloudChannel){try{await cloudClient.removeChannel(cloudChannel)}catch(e){}}
+ cloudChannel=cloudClient.channel('cyn-calendar-state').on('postgres_changes',{event:'UPDATE',schema:'public',table:'app_state',filter:`user_id=eq.${cloudUser.id}`},async payload=>{
+   if(cloudApplying)return;
+   try{const local=readCalendarPayload(),remote=payload.new?.payload||{};writeCalendarPayload(mergeCalendarPayload(local,remote));if(typeof render==='function')render();cloudStatus('已連線（收到雲端更新）',true)}catch(e){console.warn('Cloud update failed',e)}
+ }).subscribe();
+ cloudStatus('已登入並同步',true);cloudMessage('雲端同步已啟用。請在其他裝置使用同一帳號登入。');
+}
+async function cloudInitialMerge(){
+ const local=readCalendarPayload();
+ const {data,error}=await cloudClient.from('app_state').select('payload,updated_at').eq('user_id',cloudUser.id).maybeSingle();
+ if(error)throw error;
+ if(!data){
+   const {error:insertError}=await cloudClient.from('app_state').insert({user_id:cloudUser.id,payload:local,updated_at:new Date().toISOString()});
+   if(insertError)throw insertError;
+ }else{
+   // Merge by date/key: local values win on the same key; existing cloud-only values are retained.
+   const merged=mergeCalendarPayload(local,data.payload||{});
+   writeCalendarPayload(merged);
+   const {error:updateError}=await cloudClient.from('app_state').upsert({user_id:cloudUser.id,payload:merged,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+   if(updateError)throw updateError;
+ }
+ if(typeof render==='function')render();
+}
+async function cloudSyncNow(){
+ if(!cloudClient||!cloudUser)throw new Error('請先完成雲端設定並登入。');
+ const local=readCalendarPayload();
+ const {data,error:readError}=await cloudClient.from('app_state').select('payload').eq('user_id',cloudUser.id).maybeSingle();
+ if(readError)throw readError;
+ const merged=mergeCalendarPayload(local,data?.payload||{});
+ const {error}=await cloudClient.from('app_state').upsert({user_id:cloudUser.id,payload:merged,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+ if(error)throw error;
+ writeCalendarPayload(merged);if(typeof render==='function')render();
+ cloudStatus('同步完成',true);cloudMessage('已將班別覆寫、備註與心情同步至雲端。');
+}
+function scheduleCloudSync(){
+ if(cloudApplying||!cloudClient||!cloudUser)return;
+ clearTimeout(cloudSyncTimer);cloudSyncTimer=setTimeout(()=>cloudSyncNow().catch(e=>{cloudStatus('同步失敗');cloudMessage('同步失敗：'+(e.message||'請稍後重試'));}),900);
+}
+// Watch only calendar data keys; other UI preferences and uploaded background images remain local.
+const originalStorageSetItem=Storage.prototype.setItem;
+Storage.prototype.setItem=function(key,value){originalStorageSetItem.call(this,key,value);if(this===localStorage&&CLOUD_KEYS.includes(String(key)))scheduleCloudSync()};
+const originalStorageRemoveItem=Storage.prototype.removeItem;
+Storage.prototype.removeItem=function(key){originalStorageRemoveItem.call(this,key);if(this===localStorage&&CLOUD_KEYS.includes(String(key)))scheduleCloudSync()};
+document.getElementById('cloudLogin').addEventListener('click',async()=>{
+ const config={url:document.getElementById('cloudUrl').value.trim(),key:document.getElementById('cloudKey').value.trim()};
+ try{if(!config.url||!config.key)throw new Error('請填寫 Supabase Project URL 與 anon / publishable key。');localStorage.setItem(CLOUD_CONFIG_KEY,JSON.stringify(config));await cloudConnect(config,true)}catch(e){cloudMessage(e.message||'連線失敗');cloudStatus('尚未連線')}
+});
+document.getElementById('cloudSyncNow').addEventListener('click',()=>cloudSyncNow().catch(e=>cloudMessage(e.message||'同步失敗')));
+document.getElementById('cloudLogout').addEventListener('click',async()=>{
+ try{if(cloudClient)await cloudClient.auth.signOut()}catch(e){}
+ cloudClient=null;cloudUser=null;if(cloudChannel){try{await cloudChannel.unsubscribe()}catch(e){}cloudChannel=null}
+ cloudStatus('僅儲存在這台裝置');cloudMessage('已登出。這台裝置的本機資料仍保留。');
+});
+(async()=>{
+ const config=readCloudConfig();
+ if(config){document.getElementById('cloudUrl').value=config.url||'';document.getElementById('cloudKey').value=config.key||'';try{await cloudConnect(config,false)}catch(e){cloudStatus('尚未連線');cloudMessage('雲端尚未連線：'+(e.message||'請檢查設定'))}}
+})();
+
+render();
 </script></body></html>
